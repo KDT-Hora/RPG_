@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\system">
+      <UniqueIdentifier>{04199566-ddcb-440a-bd49-8add9b8dc5ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\singleton">
+      <UniqueIdentifier>{4543f89c-8cb6-4b75-b367-2cb0d27b5564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\input">
+      <UniqueIdentifier>{9e3175f3-9148-4001-b2fb-c83ebb807a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\random">
+      <UniqueIdentifier>{be18bbcf-dac3-4dbd-a6e0-a6ccb0a5aab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\charactor">
+      <UniqueIdentifier>{e6c788dd-0d9b-4304-9d2a-cfe6f2ad7cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\battleManager">
+      <UniqueIdentifier>{12410d0f-af8c-429b-a80b-8b318c90e7eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\factory">
+      <UniqueIdentifier>{91a5435f-9522-48da-8827-8a5bd4789b3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\pool">
+      <UniqueIdentifier>{a0a9fd5a-a1ad-44c2-8bb3-8aa51ff1f267}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="rpgt.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="caractorFactory.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="charactor.cpp">
+      <Filter>ソース ファイル\charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>ソース ファイル\battleManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="singleton.h">
+      <Filter>ソース ファイル\system\singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>ソース ファイル\system\input</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>ソース ファイル\system\random</Filter>
+    </ClInclude>
+    <ClInclude Include="charactor.h">
+      <Filter>ソース ファイル\charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="status.h">
+      <Filter>ソース ファイル\charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>ソース ファイル\battleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="caractorFactory.h">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="charactorDate.h">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="pool.h">
+      <Filter>ソース ファイル\pool</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
