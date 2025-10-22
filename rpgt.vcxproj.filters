@@ -29,6 +29,9 @@
     <Filter Include="ソース ファイル\pool">
       <UniqueIdentifier>{a0a9fd5a-a1ad-44c2-8bb3-8aa51ff1f267}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\battleManager\turnManager">
+      <UniqueIdentifier>{66331b97-94e9-4fd3-bdf9-790f8517b225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rpgt.cpp">
@@ -71,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="pool.h">
       <Filter>ソース ファイル\pool</Filter>
+    </ClInclude>
+    <ClInclude Include="turnManager.h">
+      <Filter>ソース ファイル\battleManager\turnManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

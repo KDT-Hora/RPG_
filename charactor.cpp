@@ -31,3 +31,13 @@ void Charactor::ChageHp(const int& arg)
 	}
 
 }
+
+//	ステータス表示
+void Charactor::DispStatus()
+{
+	std::cout << name <<
+		" | HP : " << status.HP << "/" << status.MAXHP <<
+		" | STR : " << status.STR <<
+		" | VIT : " << status.VIT <<
+		std::endl;
+}

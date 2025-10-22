@@ -23,4 +23,6 @@ public:
 	//	HP•Ï“®
 	void ChageHp(const int& arg);
 
+	void DispStatus();
+
 };
