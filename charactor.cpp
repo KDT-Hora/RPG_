@@ -38,6 +38,6 @@ void Charactor::DispStatus()
 	std::cout << name <<
 		" | HP : " << status.HP << "/" << status.MAXHP <<
 		" | STR : " << status.STR <<
-		" | VIT : " << status.VIT <<
+	//	" | VIT : " << status.VIT <<
 		std::endl;
 }

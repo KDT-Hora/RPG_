@@ -21,7 +21,7 @@ class PoolHandle
 public:
 	//	コピー禁止
 	PoolHandle(const PoolHandle&) = delete;
-	//	ムーブ禁止
+	//	ムーブ可能
 	PoolHandle(PoolHandle&& other)noexcept
 		:obj_(other.obj_), pool_(other.pool_)
 	{
@@ -41,6 +41,21 @@ public:
 	//	アクセス演算子
 	T* operator->() { return obj_; }
 	T& operator*() { return *obj_; }
+
+	//	ムーブの定義
+	PoolHandle& operator=(PoolHandle&& other) noexcept
+	{
+		if (this != &other)
+		{
+			if (obj_ && pool_)
+				pool_->Release(obj_);
+			obj_ = other.obj_;
+			pool_ = other.pool_;
+			other.obj_ = nullptr;
+			other.pool_ = nullptr;
+		}
+		return *this;
+	}
 
 private:
 	T* obj_;

@@ -10,6 +10,7 @@ public:
 	char str;
 	void input() {
 		str = _getch();
+		std::cout << str << std::endl;
 	}
 
 };

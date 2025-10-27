@@ -10,6 +10,8 @@ const CharactorData CharactorFactory::playerData[] = {
 
 const CharactorData CharactorFactory::enemyData[] = {
     {0,"ƒXƒ‰ƒCƒ€",Enemy,20,20,5},
+    {1,"ƒSƒuƒŠƒ“",Enemy,40,25,10},
+
 };
 
 
