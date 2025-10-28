@@ -140,7 +140,6 @@ void BattleController::Delete()
 	std::erase_if(player, [](PoolHandle<Charactor>& ch) {
 		return ch->isLife == false;
 		});
-
 }
 
 //	
@@ -160,7 +159,6 @@ void BattleController::Run()
 		this->Attack();
 		//	íœ
 		this->Delete();
-
 
 
 		if (enemy.size() == 0) {
