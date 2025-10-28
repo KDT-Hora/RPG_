@@ -2,6 +2,11 @@
 #include <iostream>
 
 
+void View::MsgSelect()
+{
+	std::cout << "”Žš‚ÅUŒ‚‘ÎÛ‚ð‘I‘ð" << std::endl;
+}
+
 void View::DispState(const std::string& name, const Status& sta)
 {
 	std::cout << name <<

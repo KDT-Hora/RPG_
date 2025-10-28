@@ -38,7 +38,8 @@ void BattleController::selectTarget()
 	
 	if (actionSide==ActionSide::PLAYER)
 	{
-		std::cout << "数字で攻撃対象を選択" << std::endl;
+		//	攻撃対象選択
+		view.MsgSelect();
 		input.input();
 
 		if (std::isdigit(static_cast<unsigned char>(input.str)))
@@ -66,6 +67,7 @@ void BattleController::selectTarget()
 
 void BattleController::Attack()
 {
+	//	プレイヤー側行動時の動作
 	if (actionSide == ActionSide::PLAYER) 
 	{
 		//	攻撃
@@ -127,6 +129,20 @@ void BattleController::dispStatus()
 
 }
 
+//	削除
+void BattleController::Delete()
+{
+	//	敵側削除
+	std::erase_if(enemy, [](PoolHandle<Charactor>& ch) {
+		return ch->isLife == false;
+		});
+	//	プレイヤー削除
+	std::erase_if(player, [](PoolHandle<Charactor>& ch) {
+		return ch->isLife == false;
+		});
+
+}
+
 //	
 void BattleController::Run()
 {
@@ -142,15 +158,9 @@ void BattleController::Run()
 		this->selectTarget();
 		//	攻撃
 		this->Attack();
-		
-
 		//	削除
-		std::erase_if(enemy, [](PoolHandle<Charactor>& ch) {
-			return ch->isLife == false;
-			});
-		std::erase_if(player, [](PoolHandle<Charactor>& ch) {
-			return ch->isLife == false;
-			});
+		this->Delete();
+
 
 
 		if (enemy.size() == 0) {
