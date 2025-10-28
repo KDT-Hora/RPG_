@@ -14,8 +14,6 @@ const CharactorData CharactorFactory::enemyData[] = {
 
 };
 
-
-
 const int CharactorFactory::playerTableSize = sizeof(playerData) / sizeof(CharactorData);
 const int CharactorFactory::enemyTableSize = sizeof(enemyData) / sizeof(CharactorData);
 

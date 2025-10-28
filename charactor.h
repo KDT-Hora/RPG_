@@ -14,15 +14,18 @@ public:
 	int type = 0;
 	bool isLife = true;
 
+
+
 	//	ステータスセット
-	void Set(CharactorData data);
+	void Set(const CharactorData& data);
 
 	//	攻撃
-	int Atk();
-
+	int GetAtk();
 	//	HP変動
 	void ChageHp(const int& arg);
-
-	void DispStatus();
+	//	名前取得
+	const std::string  GetName();
+	//	ステータス取得
+	const Status GetStatus();
 
 };

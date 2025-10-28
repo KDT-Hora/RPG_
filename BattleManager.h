@@ -6,6 +6,7 @@
 
 #include "input.h"
 #include <cctype>
+#include "View.h"
 
 enum ActionSide {
 	PLAYER,
@@ -13,9 +14,9 @@ enum ActionSide {
 };
 
 
-class BattleManager:public Singleton<BattleManager>
+class BattleController:public Singleton<BattleController>
 {
-	friend class Singleton<BattleManager>;
+	friend class Singleton<BattleController>;
 
 	ActionSide actionSide = PLAYER;
 
@@ -31,6 +32,9 @@ class BattleManager:public Singleton<BattleManager>
 	std::vector<PoolHandle<Charactor>> player;
 	std::vector<PoolHandle<Charactor>> enemy;
 
+	View view;
+
+	BattleController();
 
 	void CreatePlayer();
 	void CreateEnemy(int id);

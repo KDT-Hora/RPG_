@@ -32,6 +32,9 @@
     <Filter Include="ソース ファイル\battleManager\turnManager">
       <UniqueIdentifier>{66331b97-94e9-4fd3-bdf9-790f8517b225}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\View">
+      <UniqueIdentifier>{fb26e547-af78-463a-a52c-fc581846d7c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rpgt.cpp">
@@ -45,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="BattleManager.cpp">
       <Filter>ソース ファイル\battleManager</Filter>
+    </ClCompile>
+    <ClCompile Include="View.cpp">
+      <Filter>ソース ファイル\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="turnManager.h">
       <Filter>ソース ファイル\battleManager\turnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>ソース ファイル\View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

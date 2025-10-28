@@ -4,7 +4,20 @@
 #include "cstdlib"
 #include "ctime"
 
-void BattleManager::CreatePlayer()
+BattleController::BattleController()
+{
+	//	プレイヤー生成
+	this->CreatePlayer();
+	//	敵生成
+	this->CreateEnemy(0);
+	this->CreateEnemy(0);
+	this->CreateEnemy(0);
+	this->CreateEnemy(1);
+	this->CreateEnemy(1);
+	this->CreateEnemy(1);
+}
+
+void BattleController::CreatePlayer()
 {
 	//	全キャラクター生成
 	for (int i = 0; i < CharactorFactory::playerTableSize; i++) 
@@ -13,14 +26,14 @@ void BattleManager::CreatePlayer()
 	}
 }
 
-void BattleManager::CreateEnemy(int id)
+void BattleController::CreateEnemy(int id)
 {
 	//	IDを入れて呼び出し
 	enemy.push_back(CharactorFactory::EnemyCreate(id, charaPool));
 }
 
 //	攻撃対象選択
-void BattleManager::selectTarget()
+void BattleController::selectTarget()
 {
 	
 	if (actionSide==ActionSide::PLAYER)
@@ -49,15 +62,20 @@ void BattleManager::selectTarget()
 		targetIndex = r;
 	}
 
-
 }
 
-void BattleManager::Attack()
+void BattleController::Attack()
 {
 	if (actionSide == ActionSide::PLAYER) 
 	{
-		int damage = player[actIndex]->Atk();
+		//	攻撃
+		int damage = player[actIndex]->GetAtk();
+		view.DispAttack(player[actIndex]->GetName());
+		//	ダメージ被弾
 		enemy[targetIndex]->ChageHp(damage);
+		view.DispReceveDamage(enemy[targetIndex]->GetName(),damage);
+
+		view.DispDeadLog(enemy[targetIndex]->GetName(), enemy[targetIndex]->isLife);
 
 		actIndex++;
 		if (actIndex >= player.size()) {
@@ -66,8 +84,13 @@ void BattleManager::Attack()
 		}
 	}
 	else {
-		int damage = enemy[actIndex]->Atk();
+		int damage = enemy[actIndex]->GetAtk();
+		view.DispAttack(enemy[actIndex]->GetName());
+
 		player[targetIndex]->ChageHp(damage);
+		view.DispReceveDamage(player[targetIndex]->GetName(), damage);
+
+		view.DispDeadLog(player[targetIndex]->GetName(), player[targetIndex]->isLife);
 
 		actIndex++;
 		if (actIndex >= enemy.size()) {
@@ -76,41 +99,39 @@ void BattleManager::Attack()
 		}
 	}
 
+	
+
+
 }
 
 //	ステータス表示
-void BattleManager::dispStatus()
+void BattleController::dispStatus()
 {
-	for (int i = 0; i < player.size(); i++)
+//	for (int i = 0; i < player.size(); i++)
+//	{
+//		player[i]->GetStatus();
+//	}
+	for (auto& a : player)
 	{
-		player[i]->DispStatus();
+		view.DispState( a->GetName(),a->GetStatus());
 	}
 
-
-	for (int i = 0; i < enemy.size(); i++)
+//	for (int i = 0; i < enemy.size(); i++)
+//	{
+//		enemy[i]->GetStatus();
+//	}
+	for (auto& a : enemy)
 	{
-		enemy[i]->DispStatus();
+		view.DispState(a->GetName(), a->GetStatus());
 	}
 
 }
 
 //	
-void BattleManager::Run()
+void BattleController::Run()
 {
-	//	プレイヤー生成
-	this->CreatePlayer();
-	//	敵生成
-	this->CreateEnemy(0);	
-	this->CreateEnemy(0);
-	this->CreateEnemy(0);
-	this->CreateEnemy(1);
-	this->CreateEnemy(1);
-	this->CreateEnemy(1);
 
-
-
-
-	while (!player.empty()) 
+	while (true) 
 	{
 		//	表示クリア
 //		system("cls");
@@ -121,37 +142,28 @@ void BattleManager::Run()
 		this->selectTarget();
 		//	攻撃
 		this->Attack();
+		
 
 		//	削除
-		for (int i = 0; i < enemy.size();)
-		{
-			if (enemy[i]->isLife) {
-				i++;
-			}
-			else {
-			enemy.erase(enemy.begin() + i);
+		std::erase_if(enemy, [](PoolHandle<Charactor>& ch) {
+			return ch->isLife == false;
+			});
+		std::erase_if(player, [](PoolHandle<Charactor>& ch) {
+			return ch->isLife == false;
+			});
 
-			}
-		}
-		for (int i = 0; i < player.size();)
-		{
-			if (player[i]->isLife) {
-				i++;
-			}
-			else
-			{
-		//	player.erase(player.begin() + i);
-
-			}
-		}
 
 		if (enemy.size() == 0) {
+			view.DispWin();
+			break;
+		}
+		if (player.size() == 0) {
+			view.DispLose();
 			break;
 		}
 		
 
 	}//	while
 
-	std::cout << "勝利" << std::endl;
 
 }

@@ -8,7 +8,7 @@
 int main()
 {
     //  メイン
-    BattleManager::Instance().Run();
+    BattleController::Instance().Run();
 
   //  std::cout << "Hello World!\n";
 }
