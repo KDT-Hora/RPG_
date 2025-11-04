@@ -19,6 +19,7 @@ BattleController::BattleController()
 
 //	プレイヤーの生成
 //	すべて一気に作る形
+//	プレイヤーのキャラクターの種類増やせるように、IDで指定のやつを作る形に変更しようね
 void BattleController::createPlayer()
 {
 	//	全キャラクター生成
