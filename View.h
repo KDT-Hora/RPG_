@@ -18,7 +18,7 @@ public:
 	//	被ダメージの表示
 	void DispReceveDamage(const std::string& name,const int& value);
 	//	死亡ログの表示
-	void DispDeadLog(const std::string& name, const bool& isLife);
+	void DispDeadLog(const std::string& name);
 
 	//	勝利
 	void DispLose();

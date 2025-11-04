@@ -27,9 +27,8 @@ void View::DispReceveDamage(const std::string& name, const int& value)
 	std::cout << name << "‚É" << value << "‚Ìƒ_ƒ[ƒW" << std::endl;
 }
 
-void View::DispDeadLog(const std::string& name, const bool& isLife)
+void View::DispDeadLog(const std::string& name)
 {
-	if (isLife) { return; }
 	std::cout << name << "‚Í“|‚ê‚½" << std::endl;
 }
 

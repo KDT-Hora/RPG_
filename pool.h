@@ -51,6 +51,8 @@ public:
 				pool_->Release(obj_);
 			obj_ = other.obj_;
 			pool_ = other.pool_;
+
+			//	nullptr‚ð“n‚µ‚Ä‚Q•ûŒü‚©‚çŒ©‚È‚¢‚æ‚¤‚É
 			other.obj_ = nullptr;
 			other.pool_ = nullptr;
 		}
