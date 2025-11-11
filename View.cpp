@@ -1,6 +1,6 @@
 #include "View.h"
 #include <iostream>
-
+#include <iomanip>
 
 void View::MsgSelect()
 {
@@ -9,9 +9,10 @@ void View::MsgSelect()
 
 void View::DispState(const std::string& name, const Status& sta)
 {
-	std::cout << name <<
-		" | HP : " << sta.HP << "/" << sta.MAXHP <<
-		" | STR : " << sta.STR <<
+	std::cout << std::setw(8) << name <<
+		" | HP : "  << std::setw(3) << sta.HP <<
+		"/"			<< std::setw(3) << sta.MAXHP <<
+		" | STR : " << std::setw(3) << sta.STR <<
 		//	" | VIT : " << status.VIT <<
 		std::endl;
 
