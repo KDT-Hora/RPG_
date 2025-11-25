@@ -1,25 +1,19 @@
 #include "charactor.h"
 #include <iostream>
 
-
 void Charactor::Set(const CharactorData& data)
 {
 	name = data.name;
 	type = data.Type;
 	status.MAXHP = data.HP;
 	status.HP = data.HP;
-	status.STR = data.STR;
-	status.VIT = data.VIT;
+	status.ATK = data.ATK;
+	status.DEF = data.DEF;
 }
 
-int Charactor::GetAtk()
+void Charactor::Damage(const int& argDamage)
 {
-	return status.STR;
-}
-
-void Charactor::ChageHp(const int& arg)
-{
-	status.HP -= arg;
+	status.HP -= argDamage;
 
 	//	Ž€–S
 	if (status.HP <= 0) {

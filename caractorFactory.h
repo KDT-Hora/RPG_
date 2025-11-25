@@ -15,7 +15,7 @@ class CharactorFactory
 	
 public:
 
-	//	てーぶるサイズ
+	//	テーブルサイズ
 	static const int playerTableSize;
 	static const int enemyTableSize;
 

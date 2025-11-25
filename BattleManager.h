@@ -15,7 +15,6 @@ enum ActionSide {
 };
 
 //	戦闘操作クラス
-//	命名ほんとにこれでいい？？？
 class BattleController:public Singleton<BattleController>
 {
 	friend class Singleton<BattleController>;
@@ -24,7 +23,7 @@ class BattleController:public Singleton<BattleController>
 
 	//	入力
 	//	シングルトンにしてもいいけどその必要あんま感じないよね
-	Input input;
+	InputChecker input;
 
 	//	行動キャラクターインデックス所持
 	int actIndex = 0;
@@ -44,6 +43,9 @@ class BattleController:public Singleton<BattleController>
 	//	いったん10で作成
 	ObjectPool<Charactor> charaPool{ 10 };
 
+	//　エネミー最大数
+	const int ENEMY_MAX = 6;
+
 	//	キャラクター
 	std::vector<PoolHandle<Charactor>> players;		//	味方コレクション
 	std::vector<PoolHandle<Charactor>> enemies;		//	敵側コレクション
@@ -51,31 +53,37 @@ class BattleController:public Singleton<BattleController>
 	//	描画用処理をまとめたクラス
 	View view;
 
+	//　ゲームのループ判定 true:ループ false:終了
+	bool gameLoop = true;
+
 	//	コンストラクタ
 	BattleController();
 
 	//	キャラクター生成メソッド
 	//	生成して配列に入れるまでを行う
-	void createPlayer();
-	void createEnemy(int id);
+	void CreatePlayer();
+	void CreateEnemy(int id);
 
 	//	対象選択
-	void selectTarget();
+	void SelectTarget();
 	//	攻撃
-	int attack();
+	int Attack();
 	//	ダメージ反映処理
 	//	反射と似た名前だから変更しようねー
-	void reflectDamage(int& damage);
+	void ReflectDamage(int& damage);
 	//	ステータスの表示
-	void dispStatus();
+	void DispStatus();
 	//	死亡ログ
-	void deadlog();
+	void Deadlog();
 	//	削除
-	void destroy();
+	void Destroy();
+	//　ターン管理
+	void Turn();
+	//　ゲーム終了処理
+	bool GameEnd();
 
 public:
 
 	void Run();
-
 
 };

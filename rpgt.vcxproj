@@ -142,10 +142,8 @@
     <ClInclude Include="charactorDate.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="pool.h" />
-    <ClInclude Include="random.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="status.h" />
-    <ClInclude Include="turnManager.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -14,9 +14,6 @@
     <Filter Include="ソース ファイル\system\input">
       <UniqueIdentifier>{9e3175f3-9148-4001-b2fb-c83ebb807a2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\system\random">
-      <UniqueIdentifier>{be18bbcf-dac3-4dbd-a6e0-a6ccb0a5aab5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\charactor">
       <UniqueIdentifier>{e6c788dd-0d9b-4304-9d2a-cfe6f2ad7cb3}</UniqueIdentifier>
     </Filter>
@@ -28,9 +25,6 @@
     </Filter>
     <Filter Include="ソース ファイル\pool">
       <UniqueIdentifier>{a0a9fd5a-a1ad-44c2-8bb3-8aa51ff1f267}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\battleManager\turnManager">
-      <UniqueIdentifier>{66331b97-94e9-4fd3-bdf9-790f8517b225}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\View">
       <UniqueIdentifier>{fb26e547-af78-463a-a52c-fc581846d7c7}</UniqueIdentifier>
@@ -60,9 +54,6 @@
     <ClInclude Include="input.h">
       <Filter>ソース ファイル\system\input</Filter>
     </ClInclude>
-    <ClInclude Include="random.h">
-      <Filter>ソース ファイル\system\random</Filter>
-    </ClInclude>
     <ClInclude Include="charactor.h">
       <Filter>ソース ファイル\charactor</Filter>
     </ClInclude>
@@ -80,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="pool.h">
       <Filter>ソース ファイル\pool</Filter>
-    </ClInclude>
-    <ClInclude Include="turnManager.h">
-      <Filter>ソース ファイル\battleManager\turnManager</Filter>
     </ClInclude>
     <ClInclude Include="View.h">
       <Filter>ソース ファイル\View</Filter>

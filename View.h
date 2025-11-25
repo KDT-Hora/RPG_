@@ -2,11 +2,18 @@
 
 #include "status.h"
 #include <string>
+#include "pool.h"
+#include "charactor.h"
 
 //	ViewƒNƒ‰ƒX
 class View
 {
 public:
+
+	//@ƒ‰ƒCƒ“‚Ì•`‰æ
+	void DispLine();
+	// ”Ô†‚Ì•\¦
+	void DispNum(int& Num);
 
 	//	UŒ‚‘ÎÛ‘I‘ğ‚Ì‘£‚µ
 	void MsgSelect();
@@ -21,9 +28,9 @@ public:
 	void DispDeadLog(const std::string& name);
 
 	//	Ÿ—˜
-	void DispLose();
-	//	”s–k
 	void DispWin();
+	//	”s–k
+	void DispLose();
 };
 
 //

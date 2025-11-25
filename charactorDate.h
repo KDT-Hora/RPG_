@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
+#include "status.h"
 
 struct CharactorData
 {
 	int ID;
 	std::string name;
-	int Type;
+	CharacterType Type;
 	int HP;
-	int STR;
-	int VIT;
+	int ATK;
+	int DEF;
 };

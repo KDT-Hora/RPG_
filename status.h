@@ -1,7 +1,6 @@
 #pragma once
 
-
-enum {
+enum CharacterType{
 	Player,
 	Enemy,
 };
@@ -11,8 +10,6 @@ struct Status
 {
 	int MAXHP;
 	int HP;
-
-	int STR;
-	int VIT;
-	
+	int ATK;
+	int DEF;
 };

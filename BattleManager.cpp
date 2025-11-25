@@ -7,20 +7,21 @@
 BattleController::BattleController()
 {
 	//	プレイヤー生成
-	this->createPlayer();
-	//	敵生成
-	this->createEnemy(0);
-	this->createEnemy(0);
-	this->createEnemy(0);
-	this->createEnemy(1);
-	this->createEnemy(1);
-	this->createEnemy(1);
+	this->CreatePlayer();
+	//	敵ランダム生成
+	int enemySize = CharactorFactory::enemyTableSize;
+	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+	for (int i = 0; i < ENEMY_MAX; i++) {
+		//	ランダムで攻撃対象取得
+		int randID = std::rand() % enemySize;
+		this->CreateEnemy(randID);
+	}
 }
 
 //	プレイヤーの生成
 //	すべて一気に作る形
 //	プレイヤーのキャラクターの種類増やせるように、IDで指定のやつを作る形に変更しようね
-void BattleController::createPlayer()
+void BattleController::CreatePlayer()
 {
 	//	全キャラクター生成
 	for (int i = 0; i < CharactorFactory::playerTableSize; i++) 
@@ -30,14 +31,14 @@ void BattleController::createPlayer()
 }
 
 //	敵の生成処理
-void BattleController::createEnemy(int id)
+void BattleController::CreateEnemy(int id)
 {
 	//	IDを入れて呼び出し
 	enemies.push_back(CharactorFactory::EnemyCreate(id, charaPool));
 }
 
 //	攻撃対象選択
-void BattleController::selectTarget()
+void BattleController::SelectTarget()
 {
 	//	プレイヤー側行動選択
 	if (actionSide==ActionSide::PLAYER)
@@ -51,8 +52,6 @@ void BattleController::selectTarget()
 		if (std::isdigit(static_cast<unsigned char>(input.str)))
 		{
 			//	文字コードで引き算をして整数に変換
-			//	２桁とかでは使えない技だから今回限定だよねー
-			//	こんなん何で使うんよ
 			targetIndex = input.str - '0';
 			if (enemies.size()-1 < targetIndex) {
 				targetIndex = enemies.size()-1;
@@ -69,15 +68,16 @@ void BattleController::selectTarget()
 	{
 		//	ランダムで攻撃対象取得
 		std::srand(static_cast<unsigned int>(std::time(nullptr))); 
-		int r = std::rand() % players.size();
+		// どのプレイヤーを攻撃するか決める
+		int randEnemyAttack = std::rand() % players.size();
 
-		targetIndex = r;
+		targetIndex = randEnemyAttack;
 	}
 
 }
 
 //	攻撃処理
-int BattleController::attack()
+int BattleController::Attack()
 {
 	int damage = 0;
 
@@ -85,72 +85,56 @@ int BattleController::attack()
 	if (actionSide == ActionSide::PLAYER) 
 	{
 		//	攻撃
-		damage = players[actIndex]->GetAtk();
+		damage = players[actIndex]->GetStatus().ATK;
 		view.DispAttack(players[actIndex]->GetName());
-		//	ダメージ被弾
-//		enemies[targetIndex]->ChageHp(damage);
-//		view.DispReceveDamage(enemies[targetIndex]->GetName(),damage);
-//
-//
-//		//	順番
-//		actIndex++;
-//		if (actIndex >= players.size()) {
-//			actIndex = 0;
-//			actionSide = ActionSide::ENEMY;
-//		}
 	}
 	else {
-		damage = enemies[actIndex]->GetAtk();
+		damage = enemies[actIndex]->GetStatus().ATK;
 		view.DispAttack(enemies[actIndex]->GetName());
-
-//		players[targetIndex]->ChageHp(damage);
-//		view.DispReceveDamage(players[targetIndex]->GetName(), damage);
-//
-//		view.DispDeadLog(players[targetIndex]->GetName(), players[targetIndex]->isLife);
-//
-//		actIndex++;
-//		if (actIndex >= enemies.size()) {
-//			actIndex = 0;
-//			actionSide = ActionSide::PLAYER;
-//		}
 	}
 
 	return damage;
 }
 
 //	ダメージ処理
-//	VITなどの計算は受けるときに入るものとして考える
-void BattleController::reflectDamage(int& damage)
+//	DEFなどの計算は受けるときに入るものとして考える
+void BattleController::ReflectDamage(int& damage)
 {
 	//	ダメージを与える処理
 	if (actionSide == ActionSide::PLAYER)
 	{
-		enemies[targetIndex]->ChageHp(damage);
+		enemies[targetIndex]->Damage(damage);
 	}
 	else if (actionSide == ActionSide::ENEMY)
 	{
-		players[targetIndex]->ChageHp(damage);
+		players[targetIndex]->Damage(damage);
 	}
 
 }
 
 //	ステータス表示
-void BattleController::dispStatus()
+void BattleController::DispStatus()
 {
+	// 攻撃対象を見やすくするための変数
+	int count = 0;
+	view.DispLine();
 	for (auto& a : players)
 	{
 		view.DispState( a->GetName(),a->GetStatus());
 	}
-
+	view.DispLine();
 	for (auto& a : enemies)
 	{
+		view.DispNum(count);
 		view.DispState(a->GetName(), a->GetStatus());
+		count++;
 	}
+	view.DispLine();
 
 }
 
 //	死亡ログ
-void BattleController::deadlog()
+void BattleController::Deadlog()
 {
 	//	プレイヤー側
 	for (auto& a : players)
@@ -160,7 +144,7 @@ void BattleController::deadlog()
 			view.DispDeadLog(a->GetName());
 		}
 	}
-	//	プレイヤー側
+	//	エネミー側
 	for (auto& a : enemies)
 	{
 		if (!a->isLife)
@@ -171,76 +155,75 @@ void BattleController::deadlog()
 }
 
 //	削除
-void BattleController::destroy()
-{	
-	//	敵側削除
-	std::erase_if(enemies, [](PoolHandle<Charactor>& ch) {
-		return ch->isLife == false;
-		});
+void BattleController::Destroy()
+{		
 	//	プレイヤー削除
 	std::erase_if(players, [](PoolHandle<Charactor>& ch) {
 		return ch->isLife == false;
 		});
+	//	敵側削除
+	std::erase_if(enemies, [](PoolHandle<Charactor>& ch) {
+		return ch->isLife == false;
+		});
+}
+
+//　ターン管理
+void BattleController::Turn()
+{
+	//	ターンの経過処理
+	actIndex++;
+	//	キャラクターのコレクションサイズ以上の番号になるとき切り替え
+	//	今回はプレイヤーが全員行動して敵側に切り替わる仕組みのためこれで問題なし
+	//	別の仕様にするときはこの仕様だと問題あるので流用は不可
+	//	自傷などで、行動側のキャラクターが減ることがあるときは変更を加える必要あり
+	if (actionSide == ActionSide::PLAYER) {
+		if (actIndex >= players.size()) {
+			actionSide = ActionSide::ENEMY;
+			actIndex = 0;
+		}
+	}
+	else {
+		if (actIndex >= enemies.size()) {
+			actionSide = ActionSide::PLAYER;
+			actIndex = 0;
+		}
+	}
+}
+
+//　ゲーム終了処理
+bool BattleController::GameEnd()
+{
+	//	ゲーム終了条件
+	if (players.size() == 0) {
+		view.DispLose();
+		gameLoop = false;
+	}
+	if (enemies.size() == 0) {
+		view.DispWin();
+		gameLoop = false;
+	}
+	return gameLoop;
 }
 
 //	全体フロー
 void BattleController::Run()
 {
-
-	while (true) 
-	{
-		//	表示クリア
-//		system("cls");
-	
+	while (gameLoop) {
 		//	ステータス表示
-		this->dispStatus();
+		this->DispStatus();
 		//	行動対象決定
-		this->selectTarget();
+		this->SelectTarget();
 		//	攻撃
-		int damage = this->attack();
+		int damage = this->Attack();
 		//	ダメージを適応
-		this->reflectDamage(damage);
+		this->ReflectDamage(damage);
 		//	死亡ログ出力
-		this->deadlog();
-
+		this->Deadlog();
 		//	削除
-		this->destroy();
-
-		//	ターンの経過処理
-		actIndex++;
-		//	キャラクターのコレクションサイズ以上の番号になるとき切り替え
-		//	今回はプレイヤーが全員行動して敵側に切り替わる仕組みのためこれで問題なし
-		//	別の仕様にするときはこの仕様だと問題あるので流用は不可
-		//	自傷などで、行動側のキャラクターが減ることがあるときは変更を加える必要あり
-		if (actionSide == ActionSide::PLAYER) {
-			if (actIndex >= players.size()) {
-				actionSide = ActionSide::ENEMY;
-				actIndex = 0;
-			}
-		}
-		else {
-			if (actIndex >= enemies.size()) {
-				actionSide = ActionSide::PLAYER;
-				actIndex = 0;
-			}
-		}
-
-
-		//	ゲーム終了条件
-		if (enemies.size() == 0) {
-			view.DispWin();
-			break;
-		}
-		if (players.size() == 0) {
-			view.DispLose();
-			break;
-		}
-		
-
+		this->Destroy();
+		//　ターン管理
+		this->Turn();
+		//　ゲーム終了処理
+		this->GameEnd();
 	}//	while
-
-
 }
-//
-// 
-//

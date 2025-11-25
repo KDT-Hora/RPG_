@@ -1,7 +1,6 @@
 #include "caractorFactory.h"
-//#include <stdexcept>
 
-
+// 情報
 const CharactorData CharactorFactory::playerData[] = {
     {0,"勇者",Player,100,20,20},
     {1,"戦士",Player,80,25,25},
@@ -11,12 +10,14 @@ const CharactorData CharactorFactory::playerData[] = {
 const CharactorData CharactorFactory::enemyData[] = {
     {0,"スライム",Enemy,20,20,5},
     {1,"ゴブリン",Enemy,40,25,10},
-
 };
 
+// テーブルサイズ
 const int CharactorFactory::playerTableSize = sizeof(playerData) / sizeof(CharactorData);
 const int CharactorFactory::enemyTableSize = sizeof(enemyData) / sizeof(CharactorData);
 
+//  生成メソッド
+// プレイヤー
 PoolHandle<Charactor> CharactorFactory::PlayerCreate(const int& ID, ObjectPool<Charactor>& pool)
 {
     for (int i = 0; i <= playerTableSize; i++)
@@ -31,8 +32,7 @@ PoolHandle<Charactor> CharactorFactory::PlayerCreate(const int& ID, ObjectPool<C
         }
     }
 }
-
-//  生成メソッド
+// エネミー
 PoolHandle<Charactor> CharactorFactory::EnemyCreate
 (const int& ID, ObjectPool<Charactor>& pool)
 {

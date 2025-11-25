@@ -11,18 +11,14 @@ class Charactor
 
 public:
 
-	int type = 0;
+	CharacterType type;
 	bool isLife = true;
-
-
 
 	//	ステータスセット
 	void Set(const CharactorData& data);
 
-	//	攻撃
-	int GetAtk();
 	//	HP変動
-	void ChageHp(const int& arg);
+	void Damage(const int& argDamage);
 	//	名前取得
 	const std::string  GetName();
 	//	ステータス取得
