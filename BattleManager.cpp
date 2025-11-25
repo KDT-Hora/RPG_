@@ -50,7 +50,7 @@ void BattleController::SelectTarget()
 
 		//	入力されたものを数値として保持
 		if (std::isdigit(static_cast<unsigned char>(input.str)))
-		{
+		{ 
 			//	文字コードで引き算をして整数に変換
 			targetIndex = input.str - '0';
 			if (enemies.size()-1 < targetIndex) {
